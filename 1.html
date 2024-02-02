@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('2.jpg');
+            background-size: cover;
+            background-position: center;
+
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #todoList {
+            max-width: 700px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 10px;
+        }
+
+        #taskInput, #timeInput {
+            width: 40%;
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        #addTaskBtn {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .taskText {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .timeText {
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        .completeCheckbox {
+            margin-right: 10px;
+        }
+
+        .deleteTaskBtn {
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="todoList">
+        <h1>To-Do List</h1>
+        <div>
+            <input type="text" id="taskInput" placeholder="Add a new task">
+            <input type="time" id="timeInput">
+            <button id="addTaskBtn" onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="tasksList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var timeInput = document.getElementById("timeInput");
+            var taskText = taskInput.value.trim();
+            var timeText = timeInput.value;
+
+            if (taskText !== "") {
+                var tasksList = document.getElementById("tasksList");
+                var li = document.createElement("li");
+                li.innerHTML = `
+                    <input type="checkbox" class="completeCheckbox" onchange="toggleTaskCompletion(this)">
+                    <span class="taskText">${taskText}</span>
+                    <span class="timeText">${timeText}</span>
+                    <button class="deleteTaskBtn" onclick="deleteTask(this)">Delete</button>
+                `;
+                tasksList.appendChild(li);
+
+                
+                taskInput.value = "";
+                timeInput.value = "";
+            }
+        }
+
+        function deleteTask(button) {
+            var li = button.parentElement;
+            li.remove();
+        }
+
+        function toggleTaskCompletion(checkbox) {
+            var taskText = checkbox.nextElementSibling;
+            
+            taskText.style.textDecoration = checkbox.checked ? "line-through" : "none";
+        }
+    </script>
+</body>
+</html>

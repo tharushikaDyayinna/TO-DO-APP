@@ -1,4 +1,4 @@
-# ToDo List 
+# To Do List 
 
 A simple web-based to-do list application using HTML, CSS, and JavaScript.
 
